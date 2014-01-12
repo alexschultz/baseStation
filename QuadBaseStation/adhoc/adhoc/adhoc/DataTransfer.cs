@@ -23,6 +23,7 @@ namespace adhoc
         {
             try
             {
+                message = "~" + message;
                 IPEndPoint RemoteEndPoint = new IPEndPoint(
                 IPAddress.Parse(ipAddress), port);
                 Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);

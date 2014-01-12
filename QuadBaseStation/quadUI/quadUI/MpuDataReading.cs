@@ -20,9 +20,9 @@ namespace quadUI
             try
             {
 
-                String[] mpuArray = mpuData.Remove(0, 2).Remove(mpuData.Length - 1).Split('|');
+                String[] mpuArray = mpuData.Remove(0, 2).Remove(mpuData.Length - 3).Split('|');
                 this.Acce = new Accelerometer(System.Math.Round((Convert.ToDouble(mpuArray[0]) / 65535) * 100), System.Math.Round((Convert.ToDouble(mpuArray[1]) / 65535) * 100), System.Math.Round((Convert.ToDouble(mpuArray[2]) / 65535) * 100));
-                this.Temp = System.Math.Round((Convert.ToDouble(mpuArray[3]) / 65535) * 100);
+                this.Temp = Convert.ToInt32(mpuArray[3]) * 1.8 + 32;
                 this.Gyro = new Gyroscope(System.Math.Round((Convert.ToDouble(mpuArray[4]) / 65535) * 100), System.Math.Round((Convert.ToDouble(mpuArray[5]) / 65535) * 100), System.Math.Round((Convert.ToDouble(mpuArray[6]) / 65535) * 100));
             }
             catch (Exception ex)
@@ -37,7 +37,8 @@ namespace quadUI
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder("MPU: ");
-            sb.Append("TEMP -" + this.Temp);
+            sb.Append("TEMP " + this.Temp);
+            sb.Append(" ");
             sb.Append(this.Gyro.ToString());
             sb.Append(this.Acce.ToString());
             return sb.ToString();

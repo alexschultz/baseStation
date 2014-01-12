@@ -43,6 +43,7 @@
             this.textBoxIncomming = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.buttonClear = new System.Windows.Forms.Button();
+            this.buttonStartBroadcasting = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonConnect
@@ -122,7 +123,7 @@
             this.textBoxMessage.Name = "textBoxMessage";
             this.textBoxMessage.Size = new System.Drawing.Size(100, 20);
             this.textBoxMessage.TabIndex = 8;
-            this.textBoxMessage.Text = "et phone home";
+            this.textBoxMessage.Text = "0";
             // 
             // label4
             // 
@@ -180,11 +181,22 @@
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
+            // buttonStartBroadcasting
+            // 
+            this.buttonStartBroadcasting.Location = new System.Drawing.Point(313, 90);
+            this.buttonStartBroadcasting.Name = "buttonStartBroadcasting";
+            this.buttonStartBroadcasting.Size = new System.Drawing.Size(115, 23);
+            this.buttonStartBroadcasting.TabIndex = 15;
+            this.buttonStartBroadcasting.Text = "Start Broadcasting";
+            this.buttonStartBroadcasting.UseVisualStyleBackColor = true;
+            this.buttonStartBroadcasting.Click += new System.EventHandler(this.buttonStartBroadcasting_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(894, 554);
+            this.Controls.Add(this.buttonStartBroadcasting);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBoxIncomming);
@@ -224,6 +236,7 @@
         private System.Windows.Forms.TextBox textBoxIncomming;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Button buttonStartBroadcasting;
     }
 }
 

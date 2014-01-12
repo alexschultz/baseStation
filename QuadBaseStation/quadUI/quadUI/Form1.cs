@@ -1,10 +1,12 @@
-﻿using System;
+﻿using controller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,11 +17,13 @@ namespace quadUI
         public adhoc.adhocNetwork Connection { get; set; }
         public adhoc.DataTransfer DataConn { get; set; }
         public MpuDataReading _tempDataReading;
+        public Controller xboxController { get; set; }
+
         public Form1()
         {
             InitializeComponent();
+            xboxController = new Controller();
             DataConn = new adhoc.DataTransfer();
-            DataConn.UdpRecievedEvent += UpdateMessage;
         }
 
         private void UpdateMessage(object sender, adhoc.DataTransfer.DataEventArgs args)
@@ -32,7 +36,7 @@ namespace quadUI
                 
                 if (textBoxIncomming.InvokeRequired)
                 {
-                    textBoxIncomming.Invoke(new MethodInvoker(delegate { _tempDataReading.ToString(); }));
+                    textBoxIncomming.Invoke(new MethodInvoker(delegate { textBoxIncomming.Text = _tempDataReading.ToString(); }));
                 }
             
             }
@@ -48,11 +52,13 @@ namespace quadUI
             if (buttonConnect.Text == "Connect")
             {
                 Connection = new adhoc.adhocNetwork(textBoxSSID.Text, "");
+                DataConn.UdpRecievedEvent += UpdateMessage;
                 Connection.Connect();
                 buttonConnect.Text = "Disconnect";
             }
             else
             {
+                DataConn.UdpRecievedEvent -= UpdateMessage;
                 Connection.Disconnect();
                 buttonConnect.Text = "Connect";
                 DataConn = null;  
@@ -61,12 +67,35 @@ namespace quadUI
 
         private void buttonSendPacket_Click(object sender, EventArgs e)
         {
-            DataConn.SendBroadcast(Convert.ToInt32(textBoxPort.Text), textBoxMessage.Text, textBoxIpAddress.Text);
+            sendData(textBoxMessage.Text);
+        }
+
+        private void sendData(string message)
+        {
+            DataConn.SendBroadcast(Convert.ToInt32(textBoxPort.Text), message, textBoxIpAddress.Text);
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
             textBoxIncomming.Text = "";
         }
+
+        private void startSending()
+        { 
+            while (true)
+            {
+                sendData(xboxController.GetControllerState());
+                Thread.Sleep(100);
+               // Console.Write(xboxController.GetControllerState());
+            }
+            
+        }
+
+        private void buttonStartBroadcasting_Click(object sender, EventArgs e)
+        {
+            Task.Factory.StartNew(startSending);
+        }
+
+        
     }
 }
