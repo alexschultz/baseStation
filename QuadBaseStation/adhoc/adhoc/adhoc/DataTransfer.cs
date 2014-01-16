@@ -27,8 +27,7 @@ namespace adhoc
                 IPEndPoint RemoteEndPoint = new IPEndPoint(
                 IPAddress.Parse(ipAddress), port);
                 Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                string welcome = message;
-                byte[] data = Encoding.ASCII.GetBytes(welcome);
+                byte[] data = Encoding.ASCII.GetBytes(message);
                 server.SendTo(data, data.Length, SocketFlags.None, RemoteEndPoint);
             }
             catch(Exception ex)

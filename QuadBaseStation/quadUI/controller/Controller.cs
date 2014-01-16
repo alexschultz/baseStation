@@ -27,7 +27,7 @@ namespace controller
 
         public string GetControllerState()
         {
-            StringBuilder state = new StringBuilder("c");
+            StringBuilder state = new StringBuilder();
             gamePadState = GamePad.GetState(PlayerIndex.One);
             state.Append(((int)((gamePadState.ThumbSticks.Left.Y) * 1000)).ToString());
             state.Append("|");
