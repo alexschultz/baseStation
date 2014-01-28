@@ -72,14 +72,18 @@ namespace quadUI
             string incommingMessage = Encoding.ASCII.GetString(args.Data);
             if (incommingMessage.StartsWith("~m"))
             {//mpu data
-                _tempDataReading = new MpuDataReading(incommingMessage);
+                //_tempDataReading = new MpuDataReading(incommingMessage);
 
+            //    if (textBoxIncoming.InvokeRequired)
+            //    {
+            //        textBoxIncoming.Invoke(new MethodInvoker(delegate { textBoxIncoming.Text = _tempDataReading.ToString(); }));
+            //    }
+            //}
                 if (textBoxIncoming.InvokeRequired)
                 {
-                    textBoxIncoming.Invoke(new MethodInvoker(delegate { textBoxIncoming.Text = _tempDataReading.ToString(); }));
+                    textBoxIncoming.Invoke(new MethodInvoker(delegate { textBoxIncoming.Text = incommingMessage; }));
                 }
             }
-            
         }
 
         private void toggleIsConnected()
